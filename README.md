@@ -1,0 +1,3 @@
+# libcrails-templates
+
+C++ library
