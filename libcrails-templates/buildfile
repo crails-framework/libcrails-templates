@@ -1,4 +1,4 @@
-import libs += libcrails-renderer%lib{crails-renderer}
+import intf_libs += libcrails-renderer%lib{crails-renderer}
 
 lib{crails-templates}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
 
@@ -13,7 +13,7 @@ cxx.poptions =+ "-I$out_root" "-I$src_root"
 
 lib{crails-templates}:
 {
-  cxx.export.poptions = "-I$out_root" "-I$src_root"
+  cxx.export.poptions = "-I$out_root/libcrails-templates/" "-I$src_root/libcrails-templates/"
   cxx.export.libs = $intf_libs
 }
 
@@ -27,6 +27,6 @@ else
 
 {hxx ixx txx}{*}:
 {
-  install         = include/crails/
+  install         = include/
   install.subdirs = true
 }
