@@ -1,6 +1,4 @@
-intf_libs = # Interface dependencies.
-impl_libs = # Implementation dependencies.
-import libs += libcrails%lib{crails}
+import libs += libcrails-renderer%lib{crails-renderer}
 
 lib{crails-templates}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
 
