@@ -11,7 +11,7 @@ namespace Crails
   class Template
   {
   public:
-    Template(const Renderer* renderer, SharedVars& vars) : renderer(renderer), vars(vars)
+    Template(const Renderer* renderer, SharedVars& vars) : vars(vars), renderer(renderer)
     {}
 
     std::string partial(const std::string& view, SharedVars vars = {});
