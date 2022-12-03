@@ -6,10 +6,11 @@ using namespace std;
 
 std::string Template::partial(const std::string& view, SharedVars vars_)
 {
-  auto templates = renderer->get_templates();
-  auto template_ = templates.find(view);
+  RenderString partial_target;
+  auto templates = renderer.get_templates();
+  auto partial_template = templates.find(view);
 
-  if (template_ == templates.end())
+  if (partial_template == templates.end())
     throw MissingTemplate(view);
   else
   {
@@ -17,6 +18,7 @@ std::string Template::partial(const std::string& view, SharedVars vars_)
 
     for (auto& var : vars_)
       duplicate[var.first] = var.second;
-    return (*template_).second(renderer, duplicate);
+    partial_template->second(renderer, partial_target, duplicate);
   }
+  return partial_target.c_str();
 }

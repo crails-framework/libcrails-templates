@@ -7,18 +7,20 @@
 namespace Crails
 {
   class Renderer;
+  class RenderTarget;
 
   class Template
   {
   public:
-    Template(const Renderer* renderer, SharedVars& vars) : vars(vars), renderer(renderer)
+    Template(const Renderer& renderer, RenderTarget& target, SharedVars& vars) : vars(vars), target(target), renderer(renderer)
     {}
 
     std::string partial(const std::string& view, SharedVars vars = {});
   protected:
     SharedVars&     vars;
+    RenderTarget&   target;
   private:
-    const Renderer* renderer;
+    const Renderer& renderer;
   };
 }
 
