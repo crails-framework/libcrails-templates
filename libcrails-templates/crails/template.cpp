@@ -22,3 +22,10 @@ std::string Template::partial(const std::string& view, SharedVars vars_)
   }
   return partial_target.c_str();
 }
+
+bool Template::has_partial(const std::string& view) const
+{
+  auto templates = renderer.get_templates();
+
+  return templates.find(view) != templates.end();
+}
