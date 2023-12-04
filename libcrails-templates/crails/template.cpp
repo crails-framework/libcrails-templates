@@ -11,7 +11,7 @@ std::string Template::partial(const std::string& view, SharedVars vars_)
   auto partial_template = templates.find(view);
 
   if (partial_template == templates.end())
-    throw MissingTemplate(view);
+    throw MissingTemplate(view, &renderer);
   else
   {
     SharedVars duplicate = vars;
