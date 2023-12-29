@@ -18,6 +18,8 @@ namespace Crails
     std::string partial(const std::string& view, SharedVars vars = {});
     bool has_partial(const std::string& view) const;
   protected:
+    virtual std::string apply_post_render_filters(const std::string&);
+
     SharedVars&     vars;
     RenderTarget&   target;
   private:

@@ -3,6 +3,11 @@
 
 using namespace Crails;
 using namespace std;
+    
+std::string Template::apply_post_render_filters(const std::string& value)
+{
+  return value;
+}
 
 std::string Template::partial(const std::string& view, SharedVars vars_)
 {
