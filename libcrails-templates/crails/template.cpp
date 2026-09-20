@@ -4,12 +4,12 @@
 using namespace Crails;
 using namespace std;
     
-std::string Template::apply_post_render_filters(const std::string& value)
+std::string Template::apply_post_render_filters(std::string&& value)
 {
-  return value;
+  return std::move(value);
 }
 
-std::string Template::partial(const std::string& view, SharedVars vars_)
+std::string Template::partial(const std::string_view view, SharedVars vars_)
 {
   RenderString partial_target;
   auto templates = renderer.get_templates();
@@ -25,10 +25,10 @@ std::string Template::partial(const std::string& view, SharedVars vars_)
       duplicate[var.first] = var.second;
     partial_template->second(renderer, partial_target, duplicate);
   }
-  return partial_target.c_str();
+  return std::move(partial_target).extract();
 }
 
-bool Template::has_partial(const std::string& view) const
+bool Template::has_partial(const std::string_view view) const
 {
   auto templates = renderer.get_templates();
 
