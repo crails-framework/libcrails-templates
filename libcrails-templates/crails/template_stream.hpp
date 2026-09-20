@@ -4,6 +4,8 @@
 #include <charconv>
 #include <format>
 #include <iterator>
+#include <ostream>
+#include <sstream>
 
 namespace Crails
 {
@@ -54,6 +56,17 @@ namespace Crails
     TemplateStream& operator<<(T value)
     {
       std::format_to(out_iterator(), "{}", value);
+      return *this;
+    }
+
+    template <typename FUNCTOR>
+    TemplateStream& operator<<(FUNCTOR&& functor)
+    requires std::is_invocable_v<FUNCTOR, std::ostream&>
+    {
+      std::ostringstream ss;
+
+      functor(ss);
+      buffer.append(ss.str());
       return *this;
     }
 
