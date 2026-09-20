@@ -1,0 +1,4 @@
+import libs += libcrails-templates%lib{crails-templates}
+import libs += libcrails-renderer%lib{crails-renderer}
+
+exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}
