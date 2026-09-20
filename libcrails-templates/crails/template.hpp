@@ -2,7 +2,7 @@
 # define TEMPLATE_HPP
 
 # include <crails/shared_vars.hpp>
-# include <sstream>
+# include "template_stream.hpp"
 
 namespace Crails
 {
