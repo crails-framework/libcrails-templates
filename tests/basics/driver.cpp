@@ -49,7 +49,7 @@ struct TestRenderer : public Renderer
     return result;
   }
 
-  void render_template(const std::string& view, RenderTarget& target, SharedVars& vars) const override
+  void render_template(const std::string_view view, RenderTarget& target, SharedVars& vars) const override
   {
     auto tpl = templates.find(view);
     (*tpl).second(*this, target, vars);

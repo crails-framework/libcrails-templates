@@ -78,13 +78,18 @@ namespace Crails
       return *this;
     }
 
-    template<typename... ARGS>
-    auto fmt(std::format_string<ARGS...> fmt_str, ARGS&&... args)
+    TemplateStream& operator<<(const TemplateStream& other)
     {
-      return [fmt_str, ...captured_args = std::forward<ARGS>(args)](TemplateStream& fs)
-      {
-        std::format_to(fs.out_iterator(), fmt_str, captured_args...);
-      };
+      if (this != &other)
+        buffer.append(other.buffer);
+      return *this;
+    }
+
+    template<typename... ARGS>
+    TemplateStream& fmt(std::format_string<ARGS...> fmt_str, ARGS&&... args)
+    {
+      std::format_to(out_iterator(), fmt_str, std::forward<ARGS>(args)...);
+      return *this;
     }
 
     [[nodiscard]] std::string extract() &&

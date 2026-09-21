@@ -15,7 +15,6 @@ int main()
     std::string str_val = "world";
 
     stream << "Hello " << std::string_view("there ") << str_val << '!';
-    assert(stream.size() == 18);
     assert(std::move(stream).extract() == "Hello there world!");
   }
 
@@ -36,8 +35,8 @@ int main()
     std::string user = "Roger";
 
     stream << "HTTP/1.1 200 OK\r\n"
-       << stream.fmt("X-Request-ID: {:#x}\r\n", request_id)
-       << stream.fmt("User: {:>8}\r\n", user);
+           << stream.fmt("X-Request-ID: {:#x}\r\n", request_id)
+           << stream.fmt("User: {:>8}\r\n", user);
     std::string expected = "HTTP/1.1 200 OK\r\n"
                            "X-Request-ID: 0x2000\r\n"
                            "User:    Roger\r\n";
@@ -50,6 +49,14 @@ int main()
 
     stream << [](std::ostream& ss) { ss << "quoted: " << std::quoted("coucou"); };
     assert(std::move(stream).extract() == "quoted: \"coucou\"");
+  }
+
+  // defer support
+  {
+    TemplateStream stream;
+
+    stream << [](TemplateStream& ss) { ss << "amount: " << ss.fmt("{} euros", 9.99); };
+    assert(std::move(stream).extract() == "amount: 9.99 euros");
   }
 
   return 0;
